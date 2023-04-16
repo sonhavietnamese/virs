@@ -13,7 +13,9 @@ import {
 	selectLocalMediaSettings,
 	selectPeers,
 	selectPeerScreenSharing,
-	selectLocalPeer
+	selectLocalPeer,
+	selectLocalPeerID,
+	selectIsPeerAudioEnabled
 } from '@100mslive/hms-video-store'
 
 export const tokenStore = writable()
@@ -27,6 +29,7 @@ function hmsToSvelteStore<T>(selector: (store: HMSStore) => T): Readable<T> {
 export const hmsIsConnected = hmsToSvelteStore(selectIsConnectedToRoom)
 export const hmsPeers = hmsToSvelteStore(selectPeers)
 export const hmsLocalPeer = hmsToSvelteStore(selectLocalPeer)
+export const hmsLocalPeerID = hmsToSvelteStore(selectLocalPeerID)
 export const hmsIsAudioEnabled = hmsToSvelteStore(selectIsLocalAudioEnabled)
 export const hmsIsVideoEnabled = hmsToSvelteStore(selectIsLocalVideoEnabled)
 export const hmsMessages = hmsToSvelteStore(selectHMSMessages)

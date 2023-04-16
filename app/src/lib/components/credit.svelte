@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { otherPlayers } from '$lib/stores'
-	import { size } from 'lodash-es'
-
 	const twitter = 'https://twitter.com/s0nhaaa'
 	const github = 'https://github.com/sonhaaa/svelte-hackathon'
 </script>
@@ -23,6 +20,6 @@
 		right: 20px;
 		display: flex;
 		align-items: center;
-		gap: 8px;
+		gap: 12px;
 	}
 </style>

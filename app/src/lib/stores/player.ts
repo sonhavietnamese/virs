@@ -13,8 +13,10 @@ export type PlayerQuaternion = {
 	w: number
 }
 
-type Player = {
+export type Player = {
 	[key: string]: {
+		id?: string
+		peerID: string
 		position: PlayerPosition
 		quaternion: PlayerQuaternion
 	}
@@ -22,4 +24,4 @@ type Player = {
 
 export const otherPlayers = writable<Player>()
 export const mainPlayers = writable<Player>()
-export const nearestPlayers = writable<Player>()
+export const nearestPlayers = writable<string[]>([])

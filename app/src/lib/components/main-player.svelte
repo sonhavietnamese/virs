@@ -82,7 +82,7 @@
 		const cameraPositionOffset = p.sub(playerBind.position)
 		playerBind.position.set(translation.x, translation.y, translation.z)
 
-		cameraTarget?.set(playerBind.position.x, playerBind.position.y, playerBind.position.z)
+		cameraTarget?.set(playerBind.position.x, playerBind.position.y + 3, playerBind.position.z)
 
 		orbitControlBind.target = cameraTarget
 

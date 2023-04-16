@@ -38,7 +38,7 @@
 		bottom: 20px;
 		left: 20px;
 		background: #000000;
-		width: 300px;
+		width: 280px;
 		height: 180px;
 		border-radius: 20px;
 		overflow: hidden;

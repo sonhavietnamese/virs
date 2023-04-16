@@ -9,10 +9,11 @@
 		Panel,
 		VideoSlide
 	} from '$lib/components'
-	import { World } from '@threlte/rapier'
+	import { Debug, World } from '@threlte/rapier'
 	import './styles.css'
 	import { Canvas } from '@threlte/core'
 	import MyVideo from '$lib/components/my-video.svelte'
+	import { nearestPlayers } from '$lib/stores'
 	// import { loadStripe, type Stripe } from '@stripe/stripe-js'
 	// import { Elements, PaymentElement, LinkAuthenticationElement, Address } from 'svelte-stripe'
 	// import { onMount } from 'svelte'
@@ -96,11 +97,12 @@
 <div class="container">
 	<MultiplayerNetwork />
 	<HmsNetwork />
-	<!-- <Canvas>
+	<Canvas>
 		<World>
+			<Debug />
 			<Scene />
 		</World>
-	</Canvas> -->
+	</Canvas>
 
 	<MyVideo />
 	<Notification />

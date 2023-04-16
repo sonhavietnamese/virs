@@ -7,7 +7,7 @@
 
 <div class="member-count">
 	<img src="/icons/peoples.svg" alt="Member count item" loading="lazy" class="member-count__icon" />
-	<span class="member-count__text">{memberCount}</span>
+	<span class="member-count__text">{size($otherPlayers) + 1}</span>
 </div>
 
 <style lang="scss">

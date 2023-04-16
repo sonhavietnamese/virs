@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { networking } from '$lib/stores'
-	import { mainPlayers, otherPlayers } from '$lib/stores'
+	import { hmsIsConnected, hmsLocalPeerID } from '$lib/helpers'
+	import { nearestPlayers, networking, otherPlayers, type Player } from '$lib/stores'
 	import { Client } from 'colyseus.js'
 	import { omit } from 'lodash-es'
 
@@ -9,13 +9,14 @@
 	const joinRoom = async () => {
 		try {
 			const room = await client.joinOrCreate('world', {
-				/* options */
+				peerID: $hmsLocalPeerID
 			})
 			room.state.players.onAdd = (player, sessionId: string) => {
 				sessionId !== room.sessionId &&
 					otherPlayers.update((other) => ({
 						...other,
 						[`${player.id}`]: {
+							peerID: player.peerID,
 							position: {
 								x: player.position.x,
 								y: player.position.y,
@@ -35,6 +36,7 @@
 						otherPlayers.update((other) => ({
 							...other,
 							[`${player.id}`]: {
+								peerID: player.peerID,
 								position: {
 									x: player.position.x,
 									y: player.position.y,
@@ -54,6 +56,7 @@
 
 			room.state.players.onRemove = (player, sessionId: string) => {
 				otherPlayers.update((other) => omit(other, sessionId))
+				nearestPlayers.update((nP) => nP.filter((p) => p !== player.peerID))
 			}
 
 			networking.set(room)
@@ -63,4 +66,6 @@
 	}
 </script>
 
-{#await joinRoom()}{/await}
+{#if $hmsIsConnected}
+	{#await joinRoom()}{/await}
+{/if}

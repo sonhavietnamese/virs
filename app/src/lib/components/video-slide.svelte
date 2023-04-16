@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { nearestPlayers } from '$lib/stores'
 	import VideoTile from './video-tile.svelte'
 
 	let slider: HTMLDivElement | null = null
@@ -36,21 +37,22 @@
 	}
 </script>
 
-<div class="video-slide">
-	<div
-		bind:this={slider}
-		class="items"
-		on:mousedown={mouseDown}
-		on:mousemove={mouseMove}
-		on:mouseleave={mouseLeave}
-		on:mouseup={mouseUp}
-	>
-		<VideoTile />
-		<VideoTile />
-		<VideoTile />
-		<VideoTile />
+{#if $nearestPlayers.length > 0}
+	<div class="video-slide">
+		<div
+			bind:this={slider}
+			class="items"
+			on:mousedown={mouseDown}
+			on:mousemove={mouseMove}
+			on:mouseleave={mouseLeave}
+			on:mouseup={mouseUp}
+		>
+			{#each $nearestPlayers as peerID}
+				<VideoTile {peerID} />
+			{/each}
+		</div>
 	</div>
-</div>
+{/if}
 
 <style lang="scss">
 	.video-slide {
@@ -78,6 +80,8 @@
 		}
 
 		.items {
+			--count: 0;
+
 			position: relative;
 			width: 100%;
 			height: 100%;
@@ -89,7 +93,7 @@
 			user-select: none;
 			cursor: pointer;
 			display: grid;
-			grid-template-columns: repeat(4, 1fr);
+			grid-template-columns: repeat(var(--count), 1fr);
 			gap: 12px;
 		}
 	}

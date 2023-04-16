@@ -1,10 +1,16 @@
 <script lang="ts">
-	import { otherPlayers } from '$lib/stores/player'
+	import { nearestPlayers, otherPlayers } from '$lib/stores/player'
 	import { AmbientLight } from '@threlte/core'
 	import { CollisionGroups } from '@threlte/rapier'
 	import Map from './map.svelte'
 	import OtherPlayer from './other-player.svelte'
 	import MainPlayer from './main-player.svelte'
+
+	const sensorEnter = (peerID: string) =>
+		nearestPlayers.update((player) => (player.includes(peerID) ? player : [...player, peerID]))
+
+	const sensorExit = (peerID: string) =>
+		nearestPlayers.update((player) => player.filter((p) => p !== peerID))
 </script>
 
 <AmbientLight intensity={1} />
@@ -18,7 +24,12 @@
 
 	{#if $otherPlayers}
 		{#each Object.entries($otherPlayers) as [key, value]}
-			<OtherPlayer quaternion={value.quaternion} position={value.position} />
+			<OtherPlayer
+				quaternion={value.quaternion}
+				position={value.position}
+				sensorEnter={() => sensorEnter(value.peerID)}
+				sensorExit={() => sensorExit(value.peerID)}
+			/>
 		{/each}
 	{/if}
 </CollisionGroups>

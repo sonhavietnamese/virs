@@ -1,46 +1,46 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte'
-	import { selectVideoTrackByID } from '@100mslive/hms-video-store'
-	import { hmsActions, hmsStore } from '$lib/helpers'
+	import { hmsStore } from '$lib/helpers'
+	import { selectIsPeerAudioEnabled, selectVideoTrackByPeerID } from '@100mslive/hms-video-store'
 	import { truncate } from 'lodash-es'
+	import { onDestroy } from 'svelte'
+	import Video from './video.svelte'
 
-	// export let trackId: string
-	let trackId: string
-
-	let unsub: () => void = () => {}
-	let videoElement: HTMLVideoElement
+	export let peerID: string
+	let isAudioEnabled: boolean = false
+	let t: string
 
 	const name = 'ABCHoangTienTHinh oangTienTHin oangTienTHin oangTienTHin'
 
-	const manageVideo = (trackId: string, videoElement: HTMLVideoElement) => {
-		if (unsub) unsub() // unsubscribe previous
+	const unsub1 = hmsStore.subscribe((video) => {
+		if (!video) return
+		t = video.id
+	}, selectVideoTrackByPeerID(peerID))
 
-		if (!trackId || !videoElement) return
+	const unsub2 = hmsStore.subscribe((enabled: boolean) => {
+		isAudioEnabled = enabled
+	}, selectIsPeerAudioEnabled(peerID))
 
-		unsub = hmsStore.subscribe((track) => {
-			if (!track) {
-				return
-			}
-			if (track?.enabled) {
-				hmsActions.attachVideo(track.id, videoElement)
-			} else {
-				hmsActions.detachVideo(track.id, videoElement)
-			}
-		}, selectVideoTrackByID(trackId))
-	}
-
-	$: manageVideo(trackId, videoElement)
-
-	onDestroy(() => unsub?.())
+	onDestroy(() => {
+		unsub1()
+		unsub2()
+	})
 </script>
 
 <div class="video-tile">
-	<video class="video-tile__video" bind:this={videoElement} autoPlay muted playsInline />
+	<Video trackId={t} />
 	<div class="video-tile__audio">
-		<img src="/icons/audio-on.svg" alt={`${name} audio is on`} class="video-tile__audio--inner" />
+		{#if isAudioEnabled}
+			<img src="/icons/audio-on.svg" alt={`${name} audio is on`} class="video-tile__audio--inner" />
+		{:else}
+			<img
+				src="/icons/audio-off.svg"
+				alt={`${name} audio is off`}
+				class="video-tile__audio--inner"
+			/>
+		{/if}
 	</div>
 	<div class="video-tile__name">
-		<span class="video-tile__name--inner">{truncate(name, { length: 20 })}</span>
+		<span class="video-tile__name--inner">{truncate(peerID, { length: 20 })}</span>
 	</div>
 </div>
 
@@ -52,12 +52,7 @@
 		background: #000000;
 		border-radius: 16px;
 		position: relative;
-
-		&__video {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-		}
+		overflow: hidden;
 
 		&__audio {
 			border-radius: 50%;

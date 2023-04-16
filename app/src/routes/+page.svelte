@@ -6,7 +6,8 @@
 		Notification,
 		MemberCount,
 		Credit,
-		Panel
+		Panel,
+		VideoSlide
 	} from '$lib/components'
 	import { World } from '@threlte/rapier'
 	import './styles.css'
@@ -106,6 +107,8 @@
 	<MemberCount />
 	<Credit />
 	<Panel />
+
+	<VideoSlide />
 </div>
 
 <style>

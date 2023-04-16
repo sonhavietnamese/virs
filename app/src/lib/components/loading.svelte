@@ -29,7 +29,7 @@
 	}
 
 	const reveal = () => {
-		if (isAnimating && !overlayPath && $app.isReady && isDone) return
+		if (isAnimating && $app.isReady && isDone) return
 		isAnimating = true
 
 		gsap

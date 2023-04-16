@@ -1,8 +1,6 @@
 <script lang="ts">
 	import type { Animations } from '$lib/stores'
 	import { GLTF, useGltfAnimations } from '@threlte/extras'
-	import { onDestroy, onMount } from 'svelte'
-	import type { Object3D } from 'three'
 
 	export let animation: Animations = 'idle.000'
 	let prevAnimation: Animations
@@ -16,10 +14,6 @@
 			prevAnimation = animation
 		}
 	}
-
-	// onDestroy(() => {
-	// 	$actions[animation]?.fadeOut(0.2)
-	// })
 
 	// $: if ($gltf) $gltf.scene.children[0].children = $gltf.scene.children[0].children.slice(0, 4)
 </script>

@@ -27,7 +27,8 @@
 								y: player.quaternion.y,
 								z: player.quaternion.z,
 								w: player.quaternion.w
-							}
+							},
+							action: player.action
 						}
 					}))
 
@@ -47,7 +48,8 @@
 									y: player.quaternion.y,
 									z: player.quaternion.z,
 									w: player.quaternion.w
-								}
+								},
+								action: player.action
 							}
 						}))
 					}

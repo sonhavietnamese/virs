@@ -1,28 +1,31 @@
 <script lang="ts">
+	import type { Animations } from '$lib/stores'
 	import type { PlayerPosition, PlayerQuaternion } from '$lib/stores/player'
-	import { Mesh, useFrame } from '@threlte/core'
-	import { Collider, RigidBody } from '@threlte/rapier'
-	import { BoxGeometry, MeshNormalMaterial, Mesh as MeshThree, Quaternion, Vector3 } from 'three'
 	import type { RigidBody as RapierRigidBody } from '@dimforge/rapier3d-compat'
+	import { Group, useFrame } from '@threlte/core'
+	import { Collider, RigidBody } from '@threlte/rapier'
+	import { Group as GroupThree, Quaternion, Vector3 } from 'three'
+	import Character from './character.svelte'
 
 	export let position: PlayerPosition
 	export let quaternion: PlayerQuaternion
+	export let animation: Animations = 'idle.000'
 	export let sensorEnter: () => void = () => {
 		console.log('enter')
 	}
 	export let sensorExit: () => void = () => {
 		console.log('exit')
 	}
-	let otherPlayerBind: MeshThree
+	let otherPlayerBind: GroupThree
 	let rigidBodyBind: RapierRigidBody
 
 	const q = new Quaternion()
 	const p = new Vector3()
 
-	$: q.set(quaternion.x, quaternion.y, quaternion.z, quaternion.w)
-	$: p.set(position.x, position.y, position.z)
-
 	useFrame(() => {
+		q.set(quaternion.x, quaternion.y, quaternion.z, quaternion.w)
+		p.set(position.x, position.y, position.z)
+
 		if (!otherPlayerBind) return
 		otherPlayerBind.position.lerp(p, 0.2)
 		otherPlayerBind.quaternion.rotateTowards(q, 0.3)
@@ -38,13 +41,9 @@
 	})
 </script>
 
-<Mesh
-	bind:mesh={otherPlayerBind}
-	receiveShadow
-	castShadow
-	geometry={new BoxGeometry(1, 2, 1)}
-	material={new MeshNormalMaterial()}
-/>
+<Group bind:group={otherPlayerBind}>
+	<Character {animation} />
+</Group>
 
 <RigidBody bind:rigidBody={rigidBodyBind} lockTranslations type="fixed">
 	<Collider

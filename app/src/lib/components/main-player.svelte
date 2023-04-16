@@ -3,16 +3,9 @@
 	import { useControl } from '$lib/hooks'
 	import { networking, type Animations } from '$lib/stores'
 	import type { RigidBody as RapierRigidBody } from '@dimforge/rapier3d-compat'
-	import {
-		Group,
-		Mesh,
-		OrbitControls,
-		PerspectiveCamera,
-		useFrame,
-		useThrelte
-	} from '@threlte/core'
+	import { Group, OrbitControls, PerspectiveCamera, useFrame, useThrelte } from '@threlte/core'
 	import { Collider, RigidBody } from '@threlte/rapier'
-	import { BoxGeometry, MeshNormalMaterial, Quaternion, Group as GroupThree, Vector3 } from 'three'
+	import { Group as GroupThree, Quaternion, Vector3 } from 'three'
 	import type { OrbitControls as OrbitControlsThree } from 'three/examples/jsm/controls/OrbitControls'
 	import Character from './character.svelte'
 
@@ -21,6 +14,7 @@
 	let orbitControlBind: OrbitControlsThree
 
 	let animation: Animations = 'idle.000'
+	let prevAnimation: Animations = animation
 
 	const walkDirection = new Vector3()
 	const rotateAngle = new Vector3(0, 1, 0)
@@ -39,13 +33,26 @@
 	const control = useControl()
 	const { camera } = useThrelte()
 
+	$: {
+		if ($control.w || $control.s || $control.a || $control.d) {
+			animation = 'walk.000'
+		} else animation = 'idle.000'
+
+		if (animation !== prevAnimation)
+			$networking &&
+				$networking.send(MESSAGES.PLAYER.ACTION, {
+					action: animation
+				})
+
+		prevAnimation = animation
+	}
+
 	useFrame(() => {
 		if (!rigidBodyBind) return
 		const velocity = rigidBodyBind.linvel()
 		counter += 1
 
 		if ($control.w || $control.s || $control.a || $control.d) {
-			animation = 'walk.000'
 			const angleYCameraDirection = Math.atan2(
 				$camera.position.x - playerBind.position.x,
 				$camera.position.z - playerBind.position.z
@@ -124,9 +131,9 @@
 	bind:rigidBody={rigidBodyBind}
 	enabledRotations={[false, false, false]}
 >
-	<Collider shape={'cuboid'} args={[0.3, 0.5, 0.3]} />
+	<Collider shape={'cuboid'} args={[0.6, 0.5, 0.6]} />
 </RigidBody>
 
 <Group bind:group={playerBind}>
-	<Character bind:animation />
+	<Character {animation} />
 </Group>

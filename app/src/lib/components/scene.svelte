@@ -29,6 +29,7 @@
 				<OtherPlayer
 					quaternion={value.quaternion}
 					position={value.position}
+					animation={value.action}
 					sensorEnter={() => sensorEnter(value.peerID)}
 					sensorExit={() => sensorExit(value.peerID)}
 				/>

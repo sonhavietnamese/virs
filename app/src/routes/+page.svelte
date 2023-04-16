@@ -100,7 +100,7 @@
 	<Loading>
 		<Canvas>
 			<World>
-				<Debug />
+				<!-- <Debug /> -->
 				<Scene />
 			</World>
 		</Canvas>

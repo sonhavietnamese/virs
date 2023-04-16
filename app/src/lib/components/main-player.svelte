@@ -20,7 +20,6 @@
 	const rotateAngle = new Vector3(0, 1, 0)
 	const rotateQuaternion = new Quaternion()
 	const cameraTarget = new Vector3()
-
 	const direction = new Vector3()
 	const frontVector = new Vector3()
 	const sideVector = new Vector3()

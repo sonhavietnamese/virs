@@ -1,35 +1,19 @@
 <script lang="ts">
-	import { hmsActions, hmsStore } from '$lib/helpers'
-	import { selectLocalPeer } from '@100mslive/hms-video-store'
-	import { onDestroy, onMount } from 'svelte'
-
-	let unsub: () => void = () => {}
-	let videoElement: HTMLVideoElement
-
-	const manageVideo = () => {
-		if (unsub) unsub()
-
-		if (!videoElement) return
-
-		unsub = hmsStore.subscribe((peer) => {
-			if (!peer) {
-				return
-			}
-
-			if (peer.videoTrack) {
-				hmsActions.attachVideo(peer.videoTrack, videoElement)
-			}
-		}, selectLocalPeer)
-	}
-
-	onMount(() => manageVideo())
-
-	onDestroy(() => unsub?.())
+	import { hmsIsVideoEnabled, hmsLocalPeer } from '$lib/helpers'
+	import { fade } from 'svelte/transition'
+	import Video from './video.svelte'
 </script>
 
-<div class="my-video">
-	<video class="my-video__inner" bind:this={videoElement} autoPlay muted playsInline />
-</div>
+{#if $hmsIsVideoEnabled && $hmsLocalPeer?.videoTrack}
+	<div
+		class="my-video"
+		transition:fade|local={{
+			duration: 200
+		}}
+	>
+		<Video trackId={$hmsLocalPeer.videoTrack} />
+	</div>
+{/if}
 
 <style lang="scss">
 	.my-video {
@@ -42,12 +26,5 @@
 		height: 180px;
 		border-radius: 20px;
 		overflow: hidden;
-
-		&__inner {
-			height: 100%;
-			width: 100%;
-			transform: scaleX(-1);
-			object-fit: cover;
-		}
 	}
 </style>

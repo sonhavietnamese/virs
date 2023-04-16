@@ -42,6 +42,7 @@
 		<div
 			bind:this={slider}
 			class="items"
+			style="--count: {$nearestPlayers.length}"
 			on:mousedown={mouseDown}
 			on:mousemove={mouseMove}
 			on:mouseleave={mouseLeave}

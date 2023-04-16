@@ -3,14 +3,14 @@
 	import { selectVideoTrackByID } from '@100mslive/hms-video-store'
 	import { hmsActions, hmsStore } from '$lib/helpers'
 
-	export let mirror
-	export let trackId
+	export let mirror: boolean = false
+	export let trackId: string
 	export let objectFit = 'cover'
 
-	let unsub
-	let videoElement // this will be populated on mount
+	let unsub: () => void = () => {}
+	let videoElement: HTMLVideoElement
 
-	const manageVideo = (trackId, videoElement) => {
+	const manageVideo = (trackId: string, videoElement: HTMLVideoElement) => {
 		if (unsub) unsub() // unsubscribe previous
 
 		if (!trackId || !videoElement) return
@@ -27,7 +27,6 @@
 		}, selectVideoTrackByID(trackId))
 	}
 
-	// reactive expression, call the function everytime track or video element changes
 	$: manageVideo(trackId, videoElement)
 
 	onDestroy(() => unsub?.())
@@ -51,7 +50,6 @@
 		object-fit: var(--objectFit);
 	}
 
-	/*mirror the video for local peer*/
 	.peer-video.mirror {
 		transform: scaleX(-1);
 	}

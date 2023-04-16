@@ -5,6 +5,7 @@
 	import Map from './map.svelte'
 	import OtherPlayer from './other-player.svelte'
 	import MainPlayer from './main-player.svelte'
+	import { app } from '$lib/stores/app'
 
 	const sensorEnter = (peerID: string) =>
 		nearestPlayers.update((player) => (player.includes(peerID) ? player : [...player, peerID]))
@@ -19,17 +20,19 @@
 	<Map />
 </CollisionGroups>
 
-<CollisionGroups groups={[0]}>
-	<MainPlayer />
+{#if $app?.isReady}
+	<CollisionGroups groups={[0]}>
+		<MainPlayer />
 
-	{#if $otherPlayers}
-		{#each Object.entries($otherPlayers) as [key, value]}
-			<OtherPlayer
-				quaternion={value.quaternion}
-				position={value.position}
-				sensorEnter={() => sensorEnter(value.peerID)}
-				sensorExit={() => sensorExit(value.peerID)}
-			/>
-		{/each}
-	{/if}
-</CollisionGroups>
+		{#if $otherPlayers}
+			{#each Object.entries($otherPlayers) as [key, value]}
+				<OtherPlayer
+					quaternion={value.quaternion}
+					position={value.position}
+					sensorEnter={() => sensorEnter(value.peerID)}
+					sensorExit={() => sensorExit(value.peerID)}
+				/>
+			{/each}
+		{/if}
+	</CollisionGroups>
+{/if}

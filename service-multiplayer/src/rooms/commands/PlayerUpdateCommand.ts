@@ -6,7 +6,7 @@ export class PlayerCreateCommand extends Command<
   World,
   {
     sessionId: string
-    publicKey: string
+    peerID: string
   }
 > {
   execute(payload: this['payload']) {
@@ -15,7 +15,7 @@ export class PlayerCreateCommand extends Command<
     const z = 0
     this.state.players.set(
       payload.sessionId,
-      new Player(payload.sessionId, { x, y, z }, { x: 0, y: 0, z: 0, w: 0 }, payload.publicKey)
+      new Player(payload.sessionId, { x, y, z }, { x: 0, y: 0, z: 0, w: 0 }, payload.peerID)
     )
   }
 }

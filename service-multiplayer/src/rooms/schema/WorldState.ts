@@ -60,15 +60,15 @@ export class Player extends Schema {
   @type(Quaternion) quaternion: Quaternion
   @type('string') action: string
   @type('number') placeholderForChange = 0
-  @type('string') publicKey: string
+  @type('string') peerID: string
 
-  constructor(id: string, position: Vector3, quaternion: Vector4, publicKey: string) {
+  constructor(id: string, position: Vector3, quaternion: Vector4, peerID: string) {
     super()
     this.id = id
     this.position = new Position(position)
     this.quaternion = new Quaternion(quaternion)
     this.action = 'idle'
-    this.publicKey = publicKey
+    this.peerID = peerID
   }
 }
 

@@ -11,9 +11,11 @@ import { WorldState } from './schema/WorldState'
 
 export class World extends Room<WorldState> {
   dispatcher = new Dispatcher(this)
+  peerID = ''
 
   async onCreate(options: any) {
     this.setState(new WorldState())
+    if (options.peerID) this.peerID = options.peerID
 
     this.onMessage(MESSAGES.PLAYER.MOVE, (client, data) => {
       this.dispatcher.dispatch(new PlayerMoveCommand(), {
@@ -31,11 +33,11 @@ export class World extends Room<WorldState> {
   }
 
   onJoin(client: Client, options?: any, auth?: any): void | Promise<any> {
-    console.log(`--> ${client.sessionId} joined!`)
+    console.log(`--> ${client.sessionId} joined! peerId: ${options.peerID}`)
 
     this.dispatcher.dispatch(new PlayerCreateCommand(), {
       sessionId: client.sessionId,
-      publicKey: options.publicKey,
+      peerID: options.peerID || this.peerID,
     })
   }
 

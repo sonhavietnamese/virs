@@ -52,6 +52,7 @@
 		"@threlte/theatre": "^0.0.2",
 		"bignumber.js": "^9.1.1",
 		"colyseus.js": "^0.14.13",
+		"gsap": "^3.11.5",
 		"lodash-es": "^4.17.21",
 		"stripe": "^12.1.1",
 		"svelte-stripe": "^0.0.22",

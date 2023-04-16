@@ -66,6 +66,6 @@
 	}
 </script>
 
-{#if $hmsIsConnected}
+{#if $hmsIsConnected && $hmsLocalPeerID}
 	{#await joinRoom()}{/await}
 {/if}

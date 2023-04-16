@@ -7,7 +7,8 @@
 		MemberCount,
 		Credit,
 		Panel,
-		VideoSlide
+		VideoSlide,
+		Loading
 	} from '$lib/components'
 	import { Debug, World } from '@threlte/rapier'
 	import './styles.css'
@@ -95,27 +96,29 @@
 {/if} -->
 
 <div class="container">
-	<MultiplayerNetwork />
 	<HmsNetwork />
-	<Canvas>
-		<World>
-			<Debug />
-			<Scene />
-		</World>
-	</Canvas>
+	<MultiplayerNetwork />
+	<Loading>
+		<Canvas>
+			<World>
+				<Scene />
+			</World>
+		</Canvas>
 
-	<MyVideo />
-	<Notification />
-	<MemberCount />
-	<Credit />
-	<Panel />
+		<MyVideo />
+		<Notification />
+		<MemberCount />
+		<Credit />
+		<Panel />
 
-	<VideoSlide />
+		<VideoSlide />
+	</Loading>
 </div>
 
 <style>
 	.container {
 		width: 100vw;
 		height: 100vh;
+		overflow: hidden;
 	}
 </style>

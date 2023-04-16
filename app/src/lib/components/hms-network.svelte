@@ -36,6 +36,10 @@
 			console.log(error)
 		}
 	}
+
+	const leaveRoom = () => hmsActions.leave()
 </script>
+
+<svelte:window on:unload={leaveRoom} />
 
 {#await join()}{/await}

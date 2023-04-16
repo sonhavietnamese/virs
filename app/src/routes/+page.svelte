@@ -1,8 +1,17 @@
 <script lang="ts">
-	import { Scene, HmsNetwork, MultiplayerNetwork } from '$lib/components'
+	import {
+		Scene,
+		HmsNetwork,
+		MultiplayerNetwork,
+		Notification,
+		MemberCount,
+		Credit,
+		Panel
+	} from '$lib/components'
 	import { World } from '@threlte/rapier'
 	import './styles.css'
 	import { Canvas } from '@threlte/core'
+	import MyVideo from '$lib/components/my-video.svelte'
 	// import { loadStripe, type Stripe } from '@stripe/stripe-js'
 	// import { Elements, PaymentElement, LinkAuthenticationElement, Address } from 'svelte-stripe'
 	// import { onMount } from 'svelte'
@@ -86,11 +95,17 @@
 <div class="container">
 	<MultiplayerNetwork />
 	<HmsNetwork />
-	<Canvas>
+	<!-- <Canvas>
 		<World>
 			<Scene />
 		</World>
-	</Canvas>
+	</Canvas> -->
+
+	<MyVideo />
+	<Notification />
+	<MemberCount />
+	<Credit />
+	<Panel />
 </div>
 
 <style>

@@ -55,6 +55,7 @@
 		"gsap": "^3.11.5",
 		"lodash-es": "^4.17.21",
 		"stripe": "^12.1.1",
+		"svelte-local-storage-store": "^0.4.0",
 		"svelte-stripe": "^0.0.22",
 		"three": "^0.145.0",
 		"ws": "^8.13.0"

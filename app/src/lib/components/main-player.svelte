@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { directionOffset, MESSAGES } from '$lib/helpers'
+	import { ANIMATION_MAPPING, directionOffset, generateAnimationName, MESSAGES } from '$lib/helpers'
 	import { useControl } from '$lib/hooks'
-	import { networking, type Animations } from '$lib/stores'
+	import { networking, type Animations, characterConfig } from '$lib/stores'
 	import type { RigidBody as RapierRigidBody } from '@dimforge/rapier3d-compat'
 	import { Group, OrbitControls, PerspectiveCamera, useFrame, useThrelte } from '@threlte/core'
 	import { Collider, RigidBody } from '@threlte/rapier'
@@ -24,7 +24,7 @@
 	const frontVector = new Vector3()
 	const sideVector = new Vector3()
 
-	const SPEED = 7
+	const SPEED = 5
 
 	const OFFSET = 1
 	let counter = 0
@@ -35,9 +35,9 @@
 	$: {
 		if ($control.w || $control.s || $control.a || $control.d) {
 			animation = 'walk.000'
-		} else animation = 'idle.000'
+		} else animation = generateAnimationName('idle', 4) as Animations
 
-		if (animation !== prevAnimation)
+		if (animation.split('.')[0] !== prevAnimation.split('.')[0])
 			$networking &&
 				$networking.send(MESSAGES.PLAYER.ACTION, {
 					action: animation
@@ -134,5 +134,5 @@
 </RigidBody>
 
 <Group bind:group={playerBind}>
-	<Character {animation} />
+	<Character {animation} characterConfig={$characterConfig} />
 </Group>

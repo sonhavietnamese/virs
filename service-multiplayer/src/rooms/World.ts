@@ -2,12 +2,13 @@ import { Dispatcher } from '@colyseus/command'
 import { Client, Room } from 'colyseus'
 import {
   PlayerActionCommand,
+  PlayerChangePartCommand,
   PlayerCreateCommand,
   PlayerLeaveCommand,
   PlayerMoveCommand,
 } from './commands/PlayerUpdateCommand'
 import { MESSAGES } from './constants/Message'
-import { WorldState } from './schema/WorldState'
+import { CharacterConfig, WorldState } from './schema/WorldState'
 
 export class World extends Room<WorldState> {
   dispatcher = new Dispatcher(this)
@@ -30,6 +31,13 @@ export class World extends Room<WorldState> {
         action: data.action,
       })
     })
+
+    this.onMessage(MESSAGES.PLAYER.CHANGE_PART, (client, data) => {
+      this.dispatcher.dispatch(new PlayerChangePartCommand(), {
+        sessionId: client.sessionId,
+        characterConfig: data.characterConfig,
+      })
+    })
   }
 
   onJoin(client: Client, options?: any, auth?: any): void | Promise<any> {
@@ -38,6 +46,7 @@ export class World extends Room<WorldState> {
     this.dispatcher.dispatch(new PlayerCreateCommand(), {
       sessionId: client.sessionId,
       peerID: options.peerID || this.peerID,
+      characterConfig: options.characterConfig,
     })
   }
 

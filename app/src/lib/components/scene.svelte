@@ -32,6 +32,7 @@
 					animation={value.action}
 					sensorEnter={() => sensorEnter(value.peerID)}
 					sensorExit={() => sensorExit(value.peerID)}
+					characterConfig={value.characterConfig}
 				/>
 			{/each}
 		{/if}

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { hmsIsConnected, hmsLocalPeerID } from '$lib/helpers'
-	import { nearestPlayers, networking, otherPlayers, type Player } from '$lib/stores'
+	import { characterConfig, nearestPlayers, networking, otherPlayers } from '$lib/stores'
 	import { Client } from 'colyseus.js'
 	import { omit } from 'lodash-es'
 
@@ -9,7 +9,8 @@
 	const joinRoom = async () => {
 		try {
 			const room = await client.joinOrCreate('world', {
-				peerID: $hmsLocalPeerID
+				peerID: $hmsLocalPeerID,
+				characterConfig: $characterConfig
 			})
 			room.state.players.onAdd = (player, sessionId: string) => {
 				sessionId !== room.sessionId &&
@@ -28,7 +29,8 @@
 								z: player.quaternion.z,
 								w: player.quaternion.w
 							},
-							action: player.action
+							action: player.action,
+							characterConfig: player.characterConfig
 						}
 					}))
 
@@ -49,7 +51,8 @@
 									z: player.quaternion.z,
 									w: player.quaternion.w
 								},
-								action: player.action
+								action: player.action,
+								characterConfig: player.characterConfig
 							}
 						}))
 					}
@@ -68,6 +71,6 @@
 	}
 </script>
 
-{#if $hmsIsConnected && $hmsLocalPeerID}
+{#if $hmsIsConnected && $hmsLocalPeerID && $characterConfig}
 	{#await joinRoom()}{/await}
 {/if}

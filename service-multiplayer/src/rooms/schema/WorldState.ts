@@ -13,6 +13,13 @@ export type Vector4 = {
   w: number
 }
 
+export type Part = {
+  hair: string
+  upper: string
+  lower: string
+  shoe: string
+}
+
 export class Position extends Schema implements Vector3 {
   @type('number') x: number
   @type('number') y: number
@@ -54,21 +61,51 @@ export class Quaternion extends Schema implements Vector4 {
   }
 }
 
+export class CharacterConfig extends Schema implements Part {
+  @type('string') hair: string
+  @type('string') upper: string
+  @type('string') lower: string
+  @type('string') shoe: string
+
+  constructor(part: { hair: string; upper: string; lower: string; shoe: string }) {
+    super()
+    this.hair = part.hair
+    this.upper = part.upper
+    this.lower = part.lower
+    this.shoe = part.shoe
+  }
+
+  set(part: { hair: string; upper: string; lower: string; shoe: string }) {
+    this.hair = part.hair
+    this.upper = part.upper
+    this.lower = part.lower
+    this.shoe = part.shoe
+  }
+}
+
 export class Player extends Schema {
   @type('string') id: string
   @type(Position) position: Position
   @type(Quaternion) quaternion: Quaternion
+  @type(CharacterConfig) characterConfig: CharacterConfig
   @type('string') action: string
   @type('number') placeholderForChange = 0
   @type('string') peerID: string
 
-  constructor(id: string, position: Vector3, quaternion: Vector4, peerID: string) {
+  constructor(
+    id: string,
+    position: Vector3,
+    quaternion: Vector4,
+    peerID: string,
+    characterConfig: Part
+  ) {
     super()
     this.id = id
     this.position = new Position(position)
     this.quaternion = new Quaternion(quaternion)
-    this.action = 'idle'
+    this.action = 'idle.000'
     this.peerID = peerID
+    this.characterConfig = new CharacterConfig(characterConfig)
   }
 }
 

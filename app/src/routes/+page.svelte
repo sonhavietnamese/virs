@@ -8,7 +8,8 @@
 		Credit,
 		Panel,
 		VideoSlide,
-		Loading
+		Loading,
+		PartConfig
 	} from '$lib/components'
 	import { Debug, World } from '@threlte/rapier'
 	import './styles.css'
@@ -110,6 +111,7 @@
 		<MemberCount />
 		<Credit />
 		<Panel />
+		<PartConfig />
 
 		<VideoSlide />
 	</Loading>

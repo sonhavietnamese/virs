@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Animations } from '$lib/stores'
-	import type { PlayerPosition, PlayerQuaternion } from '$lib/stores/player'
+	import type { CharacterConfig, PlayerPosition, PlayerQuaternion } from '$lib/stores/player'
 	import type { RigidBody as RapierRigidBody } from '@dimforge/rapier3d-compat'
 	import { Group, useFrame } from '@threlte/core'
 	import { Collider, RigidBody } from '@threlte/rapier'
@@ -10,6 +10,7 @@
 	export let position: PlayerPosition
 	export let quaternion: PlayerQuaternion
 	export let animation: Animations = 'idle.000'
+	export let characterConfig: CharacterConfig
 	export let sensorEnter: () => void = () => {
 		console.log('enter')
 	}
@@ -42,7 +43,7 @@
 </script>
 
 <Group bind:group={otherPlayerBind}>
-	<Character {animation} />
+	<Character {animation} {characterConfig} />
 </Group>
 
 <RigidBody bind:rigidBody={rigidBodyBind} lockTranslations type="fixed">

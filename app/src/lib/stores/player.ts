@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store'
+import { persisted } from 'svelte-local-storage-store'
 
 export type Animations =
 	| 'angry.000'
@@ -57,9 +58,30 @@ export type Player = {
 		position: PlayerPosition
 		quaternion: PlayerQuaternion
 		action: Animations
+		characterConfig: CharacterConfig
 	}
+}
+
+export type CharacterConfig = {
+	hair: string
+	upper: string
+	lower: string
+	shoe: string
 }
 
 export const otherPlayers = writable<Player>()
 export const mainPlayers = writable<Player>()
 export const nearestPlayers = writable<string[]>([])
+// export const characterConfig = writable<CharacterConfig>({
+// 	hair: '',
+// 	upper: '',
+// 	lower: '',
+// 	shoe: ''
+// })
+
+export const characterConfig = persisted<CharacterConfig>('character-config', {
+	hair: '',
+	upper: '',
+	lower: '',
+	shoe: ''
+})

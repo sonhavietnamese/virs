@@ -14,7 +14,6 @@
 	import './styles.css'
 	import { Canvas } from '@threlte/core'
 	import MyVideo from '$lib/components/my-video.svelte'
-	import { nearestPlayers } from '$lib/stores'
 	// import { loadStripe, type Stripe } from '@stripe/stripe-js'
 	// import { Elements, PaymentElement, LinkAuthenticationElement, Address } from 'svelte-stripe'
 	// import { onMount } from 'svelte'
@@ -101,6 +100,7 @@
 	<Loading>
 		<Canvas>
 			<World>
+				<Debug />
 				<Scene />
 			</World>
 		</Canvas>

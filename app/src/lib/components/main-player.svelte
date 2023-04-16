@@ -1,16 +1,26 @@
 <script lang="ts">
 	import { directionOffset, MESSAGES } from '$lib/helpers'
 	import { useControl } from '$lib/hooks'
-	import { networking } from '$lib/stores'
+	import { networking, type Animations } from '$lib/stores'
 	import type { RigidBody as RapierRigidBody } from '@dimforge/rapier3d-compat'
-	import { Mesh, OrbitControls, PerspectiveCamera, useFrame, useThrelte } from '@threlte/core'
+	import {
+		Group,
+		Mesh,
+		OrbitControls,
+		PerspectiveCamera,
+		useFrame,
+		useThrelte
+	} from '@threlte/core'
 	import { Collider, RigidBody } from '@threlte/rapier'
-	import { BoxGeometry, MeshNormalMaterial, Quaternion, Mesh as ThreeMesh, Vector3 } from 'three'
+	import { BoxGeometry, MeshNormalMaterial, Quaternion, Group as GroupThree, Vector3 } from 'three'
 	import type { OrbitControls as OrbitControlsThree } from 'three/examples/jsm/controls/OrbitControls'
+	import Character from './character.svelte'
 
-	let playerBind: ThreeMesh
+	let playerBind: GroupThree
 	let rigidBodyBind: RapierRigidBody
 	let orbitControlBind: OrbitControlsThree
+
+	let animation: Animations = 'idle.000'
 
 	const walkDirection = new Vector3()
 	const rotateAngle = new Vector3(0, 1, 0)
@@ -20,6 +30,8 @@
 	const direction = new Vector3()
 	const frontVector = new Vector3()
 	const sideVector = new Vector3()
+
+	const SPEED = 7
 
 	const OFFSET = 1
 	let counter = 0
@@ -33,6 +45,7 @@
 		counter += 1
 
 		if ($control.w || $control.s || $control.a || $control.d) {
+			animation = 'walk.000'
 			const angleYCameraDirection = Math.atan2(
 				$camera.position.x - playerBind.position.x,
 				$camera.position.z - playerBind.position.z
@@ -72,7 +85,7 @@
 		direction
 			.subVectors(frontVector, sideVector)
 			.normalize()
-			.multiplyScalar(10)
+			.multiplyScalar(SPEED)
 			.applyEuler($camera.rotation)
 		rigidBodyBind.setLinvel({ x: direction.x, y: velocity.y, z: direction.z }, true)
 
@@ -111,13 +124,9 @@
 	bind:rigidBody={rigidBodyBind}
 	enabledRotations={[false, false, false]}
 >
-	<Collider shape={'cuboid'} args={[0.3, 1, 0.3]} />
+	<Collider shape={'cuboid'} args={[0.3, 0.5, 0.3]} />
 </RigidBody>
 
-<Mesh
-	bind:mesh={playerBind}
-	receiveShadow
-	castShadow
-	geometry={new BoxGeometry(1, 2, 1)}
-	material={new MeshNormalMaterial()}
-/>
+<Group bind:group={playerBind}>
+	<Character bind:animation />
+</Group>

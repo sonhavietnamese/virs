@@ -29,13 +29,13 @@
 	}
 
 	const reveal = () => {
-		if (isAnimating && !overlayPath) return
+		if (isAnimating && !overlayPath && $app.isReady && isDone) return
 		isAnimating = true
 
 		gsap
 			.timeline({
 				onComplete: () => {
-					isAnimating = false
+					isDone = true
 				}
 			})
 			.set(overlayPath, {

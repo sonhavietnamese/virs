@@ -4,7 +4,7 @@
 	import { Client } from 'colyseus.js'
 	import { omit } from 'lodash-es'
 
-	let client = new Client('ws://localhost:2567')
+	let client = new Client('wss://virs.trysts.io')
 
 	const joinRoom = async () => {
 		try {

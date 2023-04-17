@@ -1,0 +1,8 @@
+version: "3.2"
+
+services:
+  multiplayer:
+    build: .
+    ports:
+      - "8080:2567"
+    command: 'npm start'

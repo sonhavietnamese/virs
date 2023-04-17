@@ -9,16 +9,16 @@
 <div class="panel">
 	<RoundButton onClick={toggleAudio}>
 		{#if $hmsIsAudioEnabled}
-			<img class="panel__audio" src="/icons/audio-on.svg" alt="Audio is on" />
+			<img class="panel__audio" loading="lazy" src="/icons/audio-on.svg" alt="Audio is on" />
 		{:else}
-			<img class="panel__audio" src="/icons/audio-off.svg" alt="Audio is off" />
+			<img class="panel__audio" loading="lazy" src="/icons/audio-off.svg" alt="Audio is off" />
 		{/if}
 	</RoundButton>
 	<RoundButton onClick={toggleVideo}>
 		{#if $hmsIsVideoEnabled}
-			<img class="panel__video" src="/icons/video-on.svg" alt="Video is on" />
+			<img class="panel__video" loading="lazy" src="/icons/video-on.svg" alt="Video is on" />
 		{:else}
-			<img class="panel__video" src="/icons/video-off.svg" alt="Video is off" />
+			<img class="panel__video" loading="lazy" src="/icons/video-off.svg" alt="Video is off" />
 		{/if}
 	</RoundButton>
 </div>

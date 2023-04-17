@@ -98,7 +98,12 @@
 			openConfigPanel = !openConfigPanel
 		}}
 	>
-		<img class="panel__video" src="/icons/coat-hanger.svg" alt="Part config button" />
+		<img
+			class="panel__video"
+			loading="lazy"
+			src="/icons/coat-hanger.svg"
+			alt="Part config button"
+		/>
 	</RoundButton>
 	<WalletMultiButton />
 </div>
@@ -143,7 +148,12 @@
 				{#each $partItems.hair as hair}
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
 					<div class="item-card" on:click={() => changePart('hair', hair.id, hair.isOwn)}>
-						<img class="item-card__thumbnail" src={hair.image} alt="Hair item: {hair.id}" />
+						<img
+							class="item-card__thumbnail"
+							loading="lazy"
+							src={hair.image}
+							alt="Hair item: {hair.id}"
+						/>
 						{#if !hair.isOwn}
 							<div class="item-card__group-button">
 								<ButtonBuySol amount={hair.amountSol} type="hair" id={hair.id} />
@@ -165,7 +175,12 @@
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
 
 					<div class="item-card" on:click={() => changePart('upper', upper.id, upper.isOwn)}>
-						<img class="item-card__thumbnail" src={upper.image} alt="upper item: {upper.id}" />
+						<img
+							class="item-card__thumbnail"
+							loading="lazy"
+							src={upper.image}
+							alt="upper item: {upper.id}"
+						/>
 						{#if !upper.isOwn}
 							<div class="item-card__group-button">
 								<ButtonBuySol amount={upper.amountSol} type="upper" id={upper.id} />
@@ -187,7 +202,12 @@
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
 
 					<div class="item-card" on:click={() => changePart('lower', lower.id, lower.isOwn)}>
-						<img class="item-card__thumbnail" src={lower.image} alt="lower item: {lower.id}" />
+						<img
+							class="item-card__thumbnail"
+							loading="lazy"
+							src={lower.image}
+							alt="lower item: {lower.id}"
+						/>
 						{#if !lower.isOwn}
 							<div class="item-card__group-button">
 								<ButtonBuySol amount={lower.amountSol} type="lower" id={lower.id} />
@@ -209,7 +229,12 @@
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
 
 					<div class="item-card" on:click={() => changePart('shoe', shoe.id, shoe.isOwn)}>
-						<img class="item-card__thumbnail" src={shoe.image} alt="shoe item: {shoe.id}" />
+						<img
+							class="item-card__thumbnail"
+							loading="lazy"
+							src={shoe.image}
+							alt="shoe item: {shoe.id}"
+						/>
 						{#if !shoe.isOwn}
 							<div class="item-card__group-button">
 								<ButtonBuySol amount={shoe.amountSol} type="shoe" id={shoe.id} />
@@ -296,7 +321,7 @@
 		width: 100%;
 		height: 180px;
 		border-radius: 12px;
-		background: red;
+		background: transparent;
 		overflow: hidden;
 		cursor: pointer;
 		position: relative;

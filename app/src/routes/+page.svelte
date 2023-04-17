@@ -15,6 +15,10 @@
 	import { World } from '@threlte/rapier'
 </script>
 
+<svelte:head>
+	<title>Virs 🍖</title>
+</svelte:head>
+
 <div class="container">
 	<HmsNetwork />
 	<MultiplayerNetwork />

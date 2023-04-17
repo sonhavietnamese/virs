@@ -30,9 +30,14 @@
 	<Video trackId={t} />
 	<div class="video-tile__audio">
 		{#if isAudioEnabled}
-			<img src="/icons/audio-on.svg" alt={`${name} audio is on`} class="video-tile__audio--inner" />
+			<img
+				src="/icons/audio-on.svg"
+				alt={`${name}  loading="lazy" audio is on`}
+				class="video-tile__audio--inner"
+			/>
 		{:else}
 			<img
+				loading="lazy"
 				src="/icons/audio-off.svg"
 				alt={`${name} audio is off`}
 				class="video-tile__audio--inner"

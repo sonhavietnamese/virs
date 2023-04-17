@@ -8,7 +8,7 @@ const stripe = new Stripe(SECRET_STRIPE_KEY, {
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }) {
-	const { amount, id } = await request.json()
+	const { amount } = await request.json()
 
 	const paymentIntent = await stripe.paymentIntents.create({
 		amount,

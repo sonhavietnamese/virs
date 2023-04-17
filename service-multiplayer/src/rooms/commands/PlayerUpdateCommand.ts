@@ -65,7 +65,6 @@ export class PlayerChangePartCommand extends Command<
   execute(payload: this['payload']) {
     const player = this.state.players.get(payload.sessionId)
     player.characterConfig.set(payload.characterConfig)
-    player.placeholderForChange += 0.00001
   }
 }
 
@@ -79,5 +78,6 @@ export class PlayerActionCommand extends Command<
   execute(payload: this['payload']) {
     const player = this.state.players.get(payload.sessionId)
     player.action = payload.action
+    player.placeholderForChange += 0.00001
   }
 }

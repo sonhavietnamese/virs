@@ -4,8 +4,8 @@
 </script>
 
 <div class="credit">
-	<a target="_blank" href={twitter}>Twitter.</a>
-	<a target="_blank" href={github}>Github.</a>
+	<a target="_blank" href={twitter}>@s0nhaaa</a>
+	<a target="_blank" href={github}>Github</a>
 </div>
 
 <style lang="scss">

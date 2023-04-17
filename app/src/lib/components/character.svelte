@@ -2,7 +2,6 @@
 	import type { Animations, CharacterConfig } from '$lib/stores'
 	import { GLTF, useGltfAnimations } from '@threlte/extras'
 	import { concat, filter } from 'lodash-es'
-	import { onDestroy } from 'svelte'
 	import { Bone, type Object3D } from 'three'
 
 	export let animation: Animations = 'idle.000'
@@ -16,13 +15,16 @@
 
 	$: {
 		let a
-		if (characterConfig && $gltf) {
+		if (characterConfig) {
 			a = filter(nodes, (n) => {
 				const prop = n.userData?.prop
 				if (!prop) return false
 				const part = (prop as string).split('.')[0] as keyof CharacterConfig
 				return prop === `${part}.${characterConfig[part]}`
 			})
+		}
+
+		if ($gltf) {
 			$gltf.scene.children[0].children = filter($gltf.scene.children[0].children, (n) => {
 				return ['body', 'head'].includes(n.userData.name) || n instanceof Bone
 			})
@@ -40,10 +42,6 @@
 			prevAnimation = animation
 		}
 	}
-
-	onDestroy(() => {
-		$actions[animation]?.fadeOut(0.2)
-	})
 </script>
 
 <GLTF

@@ -16,7 +16,7 @@
 		SolletWalletAdapter,
 		TorusWalletAdapter
 	} from '@solana/wallet-adapter-wallets'
-	import './app.css'
+	import './styles.css'
 
 	const localStorageKey = 'walletAdapter'
 	const endpoint = WalletAdapterNetwork.Devnet

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { nearestPlayers, otherPlayers } from '$lib/stores/player'
+	import { nearestPlayers, otherPlayers } from '$lib/stores'
 	import { AmbientLight } from '@threlte/core'
 	import { CollisionGroups } from '@threlte/rapier'
 	import Map from './map.svelte'

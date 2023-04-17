@@ -72,13 +72,6 @@ export type CharacterConfig = {
 export const otherPlayers = writable<Player>()
 export const mainPlayers = writable<Player>()
 export const nearestPlayers = writable<string[]>([])
-// export const characterConfig = writable<CharacterConfig>({
-// 	hair: '',
-// 	upper: '',
-// 	lower: '',
-// 	shoe: ''
-// })
-
 export const characterConfig = persisted<CharacterConfig>('character-config', {
 	hair: '',
 	upper: '',

@@ -25,9 +25,35 @@ button {
 	outline: none;
 	border: none;
 	cursor: pointer;
+	transition: scale 0.25s ease;
+	font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+button:hover {
+	scale: 1.05;
+}
+
+button:active {
+	scale: 1;
 }
 
 a {
 	text-decoration: none;
 	color: #ffffff;
+}
+
+.wallet-adapter-button {
+	background: rgba(0, 0, 0, 0.2);
+	backdrop-filter: blur(10px);
+	border-radius: 100px;
+	padding: 26px 16px;
+}
+
+.wallet-adapter-button:hover {
+	scale: 1;
+}
+
+.wallet-adapter-dropdown-list {
+	transform: translateY(-212px);
+	box-shadow: none;
 }

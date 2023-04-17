@@ -71,7 +71,7 @@
 			background: rgba(0, 0, 0, 0.2);
 			backdrop-filter: blur(20px);
 			position: absolute;
-			top: 90px;
+			top: 20px;
 			left: 50%;
 			transform: translateX(-50%);
 			z-index: 1;

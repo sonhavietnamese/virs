@@ -6,7 +6,6 @@
 	import { Collider, RigidBody } from '@threlte/rapier'
 	import { Group as GroupThree, Quaternion, Vector3 } from 'three'
 	import Character from './character.svelte'
-	import OtherCharacter from './other-character.svelte'
 	import { isEqual } from 'lodash-es'
 
 	export let position: PlayerPosition

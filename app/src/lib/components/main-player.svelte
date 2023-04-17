@@ -134,5 +134,5 @@
 </RigidBody>
 
 <Group bind:group={playerBind}>
-	<Character {animation} characterConfig={$characterConfig} />
+	<Character isMain={true} animation={prevAnimation} characterConfig={$characterConfig} />
 </Group>

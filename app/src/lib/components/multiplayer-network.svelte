@@ -30,7 +30,12 @@
 								w: player.quaternion.w
 							},
 							action: player.action,
-							characterConfig: player.characterConfig
+							characterConfig: {
+								hair: player.characterConfig.hair,
+								upper: player.characterConfig.upper,
+								lower: player.characterConfig.lower,
+								shoe: player.characterConfig.shoe
+							}
 						}
 					}))
 
@@ -52,7 +57,12 @@
 									w: player.quaternion.w
 								},
 								action: player.action,
-								characterConfig: player.characterConfig
+								characterConfig: {
+									hair: player.characterConfig.hair,
+									upper: player.characterConfig.upper,
+									lower: player.characterConfig.lower,
+									shoe: player.characterConfig.shoe
+								}
 							}
 						}))
 					}

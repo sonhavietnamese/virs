@@ -1,8 +1,8 @@
 <script context="module" lang="ts">
 	import { Buffer } from 'buffer'
-  import { dev } from '$app/environment';
-  import { inject } from '@vercel/analytics';
-  inject({ mode: dev ? 'development' : 'production' });
+	import { dev } from '$app/environment'
+	import { inject } from '@vercel/analytics'
+	inject({ mode: dev ? 'development' : 'production' })
 
 	globalThis.Buffer = Buffer
 </script>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	const twitter = 'https://twitter.com/s0nhaaa'
-	const github = 'https://github.com/sonhaaa/svelte-hackathon'
+	const github = 'https://github.com/sonhaaa/virs'
 </script>
 
 <div class="credit">
